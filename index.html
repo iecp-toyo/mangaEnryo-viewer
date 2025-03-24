@@ -59,20 +59,20 @@
       slide.className = "swiper-slide";
 
       const img = document.createElement("img");
-      img.src = `page_${String(i).padStart(3, "0")}.jpg`; 
+      img.src = `images/page_${String(i).padStart(3, "0")}.jpg`;
 
       slide.appendChild(img);
       slides.appendChild(slide);
     }
 
-    // Swiper初期化（右から左に送る設定 included）
+    // Swiper 初期化（右から左に送る設定）
     const swiper = new Swiper(".swiper", {
       loop: false,
       direction: "horizontal",
-      rtl: true, // ← ここが右綴じ設定のカギ！
+      rtl: true, // ← 右綴じ設定（左送り）
       navigation: {
-        nextEl: ".swiper-button-prev", // ← 前へが左
-        prevEl: ".swiper-button-next", // → 次へが右
+        nextEl: ".swiper-button-prev", // ← 前へ（左）
+        prevEl: ".swiper-button-next", // → 次へ（右）
       },
       pagination: {
         el: ".swiper-pagination",
@@ -82,4 +82,5 @@
   </script>
 </body>
 </html>
+
 
