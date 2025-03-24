@@ -39,9 +39,9 @@
 <body>
   <h1>『マンガ円了』第1話</h1>
   <div class="swiper">
-   <div class="swiper-wrapper" id="slides" dir="rtl">
-  <!-- JSで画像を追加します -->
-</div>
+    <div class="swiper-wrapper" id="slides">
+      <!-- 画像はJSで追加 -->
+    </div>
     <!-- ナビゲーション -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
@@ -49,6 +49,7 @@
     <div class="swiper-pagination"></div>
   </div>
 
+  <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script>
     const slides = document.getElementById("slides");
@@ -65,19 +66,20 @@
       slides.appendChild(slide);
     }
 
-    // Swiper 初期化（右から左に送る設定）
+    // Swiper 初期化（右綴じ＝左送り設定）
     const swiper = new Swiper(".swiper", {
-  loop: false,
-  direction: "horizontal",
-  navigation: {
-    nextEl: ".swiper-button-prev", // ← 前へ（左）
-    prevEl: ".swiper-button-next", // → 次へ（右）
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-});
+      loop: false,
+      direction: "horizontal",
+      rtl: true,
+      navigation: {
+        nextEl: ".swiper-button-prev", // ← 左送り
+        prevEl: ".swiper-button-next", // → 右戻り
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
   </script>
 </body>
 </html>
