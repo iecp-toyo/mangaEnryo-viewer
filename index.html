@@ -1,196 +1,85 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>マンガビューア</title>
-    
-    <!-- ✅ Swiper.js のCDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <style>
-        body {
-            background-color: #333;
-            text-align: center;
-            color: white;
-            font-family: Arial, sans-serif;
-            transition: background-color 0.3s;
-        }
-        .swiper {
-            width: 100%;
-            max-width: 900px;
-            height: 100vh;
-            max-height: 80vh;
-            margin: auto;
-        }
-        .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-        }
-        .swiper-slide img {
-            width: auto;
-            height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-        }
-        /* ✅ フルスクリーン対応 */
-        .fullscreen {
-            width: 100vw !important;
-            height: 100vh !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: black;
-            z-index: 9999;
-        }
-        /* ✅ ボタン類 */
-        .controls {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-        }
-        .btn {
-            background: white;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin: 5px;
-            font-size: 14px;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background: lightgray;
-        }
-        /* ✅ ダークモード */
-        .dark-mode {
-            background-color: #111;
-            color: white;
-        }
-        /* ✅ ページ番号 */
-        #page-number {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        /* ✅ サムネイル一覧 */
-        .thumbnails {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-            margin-top: 10px;
-        }
-        .thumbnails img {
-            width: 80px;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-        .thumbnails img:hover {
-            border: 2px solid yellow;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>『マンガ円了』第1話</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+  />
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    h1 {
+      padding: 20px;
+    }
+    .swiper {
+      width: 90%;
+      height: 80vh;
+    }
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+    }
+    .swiper-slide img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+  </style>
 </head>
 <body>
-    <h1>『マンガ円了』第一話</h1>
-
-    <!-- ✅ 操作ボタン -->
-    <div class="controls">
-        <button class="btn" onclick="toggleFullscreen()">🔍 フルスクリーン</button>
-        <button class="btn" onclick="toggleDarkMode()">🌙 ダークモード</button>
+  <h1>『マンガ円了』第1話</h1>
+  <div class="swiper">
+    <div class="swiper-wrapper" id="slides">
+      <!-- JSで画像を追加します -->
     </div>
+    <!-- ナビゲーション -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <!-- ページ番号 -->
+    <div class="swiper-pagination"></div>
+  </div>
 
-    <!-- ✅ Swiperコンテナ -->
-    <div class="swiper" id="viewer">
-        <div class="swiper-wrapper">
-            <!-- ✅ 28ページ分の画像を追加 -->
-            <script>
-                for (let i = 1; i <= 28; i++) {
-                    document.write(`<div class="swiper-slide"><img src="page_${String(i).padStart(3, '0')}.jpg"></div>`);
-                }
-            </script>
-        </div>
-        
-        <!-- ✅ ページ送りボタン -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
-    </div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script>
+    const slides = document.getElementById("slides");
 
-    <!-- ✅ ページ番号 -->
-    <div id="page-number">1 / 28</div>
+    // page_005.jpg ～ page_033.jpg を追加
+    for (let i = 5; i <= 33; i++) {
+      const slide = document.createElement("div");
+      slide.className = "swiper-slide";
 
-    <!-- ✅ サムネイル一覧 -->
-    <div class="thumbnails">
-        <script>
-            for (let i = 1; i <= 28; i++) {
-                document.write(`<img src="page_${String(i).padStart(3, '0')}.jpg" onclick="jumpToPage(${i - 1})">`);
-            }
-        </script>
-    </div>
+      const img = document.createElement("img");
+      img.src = `images/page_${String(i).padStart(3, "0")}.jpg`;
 
-    <script>
-        var swiper = new Swiper('.swiper', {
-            loop: false,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            on: {
-                slideChange: function () {
-                    updatePageNumber();
-                },
-            },
-        });
+      slide.appendChild(img);
+      slides.appendChild(slide);
+    }
 
-        /* ✅ ページ番号を更新 */
-        function updatePageNumber() {
-            document.getElementById("page-number").innerText = `${swiper.realIndex + 1} / 28`;
-        }
-
-        /* ✅ フルスクリーン切り替え */
-        function toggleFullscreen() {
-            var viewer = document.getElementById("viewer");
-            if (!document.fullscreenElement) {
-                viewer.requestFullscreen().catch(err => console.log(err));
-            } else {
-                document.exitFullscreen();
-            }
-        }
-
-        /* ✅ ダークモード切り替え */
-        function toggleDarkMode() {
-            document.body.classList.toggle("dark-mode");
-        }
-
-        /* ✅ サムネイルからジャンプ */
-        function jumpToPage(index) {
-            swiper.slideTo(index);
-        }
-
-        /* ✅ キーボード操作 */
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "ArrowRight") swiper.slideNext();
-            if (event.key === "ArrowLeft") swiper.slidePrev();
-        });
-
-        /* ✅ 初回ページ番号設定 */
-        updatePageNumber();
-    </script>
+    // Swiper初期化（右から左に送る設定 included）
+    const swiper = new Swiper(".swiper", {
+      loop: false,
+      direction: "horizontal",
+      rtl: true, // ← ここが右綴じ設定のカギ！
+      navigation: {
+        nextEl: ".swiper-button-prev", // ← 前へが左
+        prevEl: ".swiper-button-next", // → 次へが右
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+  </script>
 </body>
 </html>
+
