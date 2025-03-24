@@ -39,9 +39,9 @@
 <body>
   <h1>『マンガ円了』第1話</h1>
   <div class="swiper">
-    <div class="swiper-wrapper" id="slides">
-      <!-- JSで画像を追加します -->
-    </div>
+   <div class="swiper-wrapper" id="slides" dir="rtl">
+  <!-- JSで画像を追加します -->
+</div>
     <!-- ナビゲーション -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
@@ -67,18 +67,17 @@
 
     // Swiper 初期化（右から左に送る設定）
     const swiper = new Swiper(".swiper", {
-      loop: false,
-      direction: "horizontal",
-      rtl: true, // ← 右綴じ設定（左送り）
-      navigation: {
-        nextEl: ".swiper-button-prev", // ← 前へ（左）
-        prevEl: ".swiper-button-next", // → 次へ（右）
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-    });
+  loop: false,
+  direction: "horizontal",
+  navigation: {
+    nextEl: ".swiper-button-prev", // ← 前へ（左）
+    prevEl: ".swiper-button-next", // → 次へ（右）
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+});
   </script>
 </body>
 </html>
