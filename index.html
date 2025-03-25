@@ -40,6 +40,13 @@
       transform: scale(2);
       cursor: zoom-out;
     }
+    .swiper-pagination {
+      height: 5px;
+      background: #444;
+    }
+    .swiper-pagination-progressbar-fill {
+      background: #fff;
+    }
   </style>
 </head>
 <body>
@@ -88,7 +95,7 @@
       },
       pagination: {
         el: ".swiper-pagination",
-        clickable: true,
+        type: "progressbar",
       },
     });
   </script>
