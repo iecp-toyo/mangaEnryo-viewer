@@ -40,11 +40,10 @@
       transform: scale(2);
       cursor: zoom-out;
     }
-    .swiper-pagination {
-      height: 5px;
+    .swiper-scrollbar {
       background: #444;
     }
-    .swiper-pagination-progressbar-fill {
+    .swiper-scrollbar-drag {
       background: #fff;
     }
   </style>
@@ -57,7 +56,7 @@
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
+    <div class="swiper-scrollbar"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
@@ -93,9 +92,9 @@
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
-      pagination: {
-        el: ".swiper-pagination",
-        type: "progressbar",
+      scrollbar: {
+        el: ".swiper-scrollbar",
+        draggable: true,
       },
     });
   </script>
