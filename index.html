@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>『マンガ円了』第1話</title>
+  <title>『マンガ円了』単行本ビューア</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link
     rel="stylesheet"
@@ -28,101 +28,69 @@
       justify-content: center;
       align-items: center;
       background: #000;
+      cursor: zoom-in;
     }
     .swiper-slide img {
       max-height: 100%;
       max-width: 100%;
       object-fit: contain;
+      transition: transform 0.3s ease;
     }
-    .thumbnail {
-      margin-top: 10px;
-      width: 100%;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-    .thumbnail img {
-      height: 80px;
-      margin: 0 5px;
-      cursor: pointer;
-      opacity: 0.6;
-      transition: opacity 0.2s;
-    }
-    .thumbnail img.active {
-      opacity: 1;
-      border: 2px solid white;
-    }
-    .page-number {
-      margin: 10px;
-      font-size: 14px;
+    .swiper-slide img.zoomed {
+      transform: scale(2);
+      cursor: zoom-out;
     }
   </style>
 </head>
 <body>
-  <h1>『マンガ円了』第1話</h1>
+  <h1>『マンガ円了』単行本ビューア</h1>
   <div class="swiper">
     <div class="swiper-wrapper" id="slides">
-      <!-- JSで画像を追加 -->
+      <!-- JSで画像を追加します -->
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-pagination"></div>
   </div>
-  <div class="page-number" id="pageNumber">1 / 29</div>
-  <div class="thumbnail" id="thumbnails"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script>
     const slides = document.getElementById("slides");
-    const thumbs = document.getElementById("thumbnails");
-    const pageNumber = document.getElementById("pageNumber");
 
-    const start = 5;
-    const end = 33;
-    const total = end - start + 1;
+    const imageNames = ["円了_表紙.jpg", "単行本_表紙.jpg"];
+    for (let i = 1; i <= 224; i++) {
+      imageNames.push(`${String(i).padStart(3, "0")}A.jpg`);
+    }
 
-    for (let i = start; i <= end; i++) {
+    imageNames.forEach((name) => {
       const slide = document.createElement("div");
       slide.className = "swiper-slide";
 
       const img = document.createElement("img");
-      img.src = `images/page_${String(i).padStart(3, "0")}.jpg`;
+      img.src = `images/${name}`;
+      img.alt = name;
+
+      // ズーム切り替え
+      img.addEventListener("click", () => {
+        img.classList.toggle("zoomed");
+      });
+
       slide.appendChild(img);
       slides.appendChild(slide);
-
-      const thumb = document.createElement("img");
-      thumb.src = img.src;
-      thumb.dataset.index = i - start;
-      thumb.addEventListener("click", () => {
-        swiper.slideTo(i - start);
-      });
-      thumbs.appendChild(thumb);
-    }
+    });
 
     const swiper = new Swiper(".swiper", {
       loop: false,
       direction: "horizontal",
-      rtl: true,
       navigation: {
-        nextEl: ".swiper-button-prev",
-        prevEl: ".swiper-button-next",
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
       },
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
       },
-      on: {
-        slideChange: () => {
-          const index = swiper.realIndex;
-          pageNumber.textContent = `${index + 1} / ${total}`;
-          document
-            .querySelectorAll(".thumbnail img")
-            .forEach((img, i) => img.classList.toggle("active", i === index));
-        },
-      },
     });
-
-    // 初期ハイライト
-    document.querySelector(".thumbnail img").classList.add("active");
   </script>
 </body>
 </html>
