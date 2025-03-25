@@ -46,10 +46,37 @@
     .swiper-scrollbar-drag {
       background: #fff;
     }
+    #loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 24px;
+      z-index: 999;
+    }
+    #page-info {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    #fullscreen-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 10px 15px;
+      background: #444;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
   <h1>『マンガ円了』単行本ビューア</h1>
+  <button id="fullscreen-btn" onclick="toggleFullscreen()">全画面表示</button>
+  <div id="loading">読み込み中...</div>
   <div class="swiper">
     <div class="swiper-wrapper" id="slides">
       <!-- JSで画像を追加します -->
@@ -58,11 +85,23 @@
     <div class="swiper-button-prev"></div>
     <div class="swiper-scrollbar"></div>
   </div>
+  <div id="page-info"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script>
-    const slides = document.getElementById("slides");
+    window.addEventListener("load", () => {
+      document.getElementById("loading").style.display = "none";
+    });
 
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    const slides = document.getElementById("slides");
     const imageNames = ["円了_表紙.jpg", "単行本_表紙.jpg"];
     for (let i = 1; i <= 224; i++) {
       imageNames.push(`${String(i).padStart(3, "0")}A.jpg`);
@@ -76,7 +115,6 @@
       img.src = `images/${name}`;
       img.alt = name;
 
-      // ズーム切り替え
       img.addEventListener("click", () => {
         img.classList.toggle("zoomed");
       });
@@ -96,6 +134,18 @@
         el: ".swiper-scrollbar",
         draggable: true,
       },
+      on: {
+        slideChange: function () {
+          const current = swiper.realIndex + 1;
+          const total = swiper.slides.length;
+          document.getElementById("page-info").textContent = `${current} / ${total}`;
+        }
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") swiper.slideNext();
+      if (e.key === "ArrowLeft") swiper.slidePrev();
     });
   </script>
 </body>
